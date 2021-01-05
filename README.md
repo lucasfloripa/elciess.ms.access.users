@@ -1,4 +1,5 @@
 # Micro Service for Access Users
+##### Tecnologies: Typescript, Node, Express, TypeORM, MongoDB, Oracle Sql.
 
 <br />
 
@@ -10,15 +11,18 @@ Controll CRUD operations of access users that can be used to access any other se
 
 ### Fuctional Requirements
   [x] - Create new user
+
   [x] - The user can delete himself
+
   [x] - The user can change your password
 
 ### Non-Fuctional Requirements
   [x] - User cant register with same e-mail
+
   [x] - User receive a welcome e-mail when is created
+
   [x] - Protected routes
 
-##### Tecnologies: Typescript, Node, Express, TypeORM, MongoDB, Oracle Sql.
 
 ### How to start this project ?
 * npm install, to install all the dependencies.
