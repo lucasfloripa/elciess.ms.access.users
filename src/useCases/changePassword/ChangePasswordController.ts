@@ -1,0 +1,36 @@
+import { asyncHandler } from '@middlewares/asyncHandler'
+import { ErrorResponse } from '@utils/ErrorResponse'
+import { NextFunction, Request, Response } from 'express'
+import { IChangePasswordRequestDTO } from './ChangePasswordDTO'
+import { ChangePasswordUseCase } from './ChangePasswordUseCase'
+
+class ChangePasswordController {
+  // eslint-disable-next-line no-useless-constructor
+  constructor (
+    private changePasswordUseCase: ChangePasswordUseCase
+  ) {}
+
+  handle = asyncHandler(async (request: Request, response: Response, next: NextFunction) => {
+    const id = request.params.id
+    const { newPassword } = request.body as IChangePasswordRequestDTO
+
+    if (!id) {
+      return next(new ErrorResponse('Insert user id', 400))
+    }
+
+    if (!newPassword) {
+      return next(new ErrorResponse('Insert password', 400))
+    }
+
+    const changePasswordRequestDTO: IChangePasswordRequestDTO = {
+      id,
+      newPassword
+    }
+
+    const changePasswordResponse = await this.changePasswordUseCase.execute(changePasswordRequestDTO)
+
+    return response.json(changePasswordResponse)
+  })
+}
+
+export { ChangePasswordController }
