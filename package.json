@@ -1,16 +1,18 @@
 {
-  "name": "ms.access.user",
+  "name": "elciess.ms.access.user",
   "version": "1.0.0",
-  "description": "",
+  "description": "Micro service to controll CRUD operations of access users that can be used to access any other service that I make.",
+  "author": "Lucas Gonçalves",
+  "email": "lucasg.floripa@gmail.com",
+  "url": "",
   "main": "index.js",
+  "keywords": ["Access, Users, Elciess, Micro Service"],
+  "license": "ISC",
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
     "start": "node dist/server.js",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --files --ignore-watch node_modules --no-notify src/server.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.12.12",
     "@types/bcrypt": "^3.0.0",
