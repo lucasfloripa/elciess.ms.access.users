@@ -7,7 +7,7 @@ import { createUserDTO } from '@utils/createUserDTO'
 
 class MongoRepository implements IUserRepository {
   async getUser (id: string): Promise<IRepositoryResponse> {
-    const mongoUser = await UserMongoSchema.findOne({ id }).select('+password')
+    const mongoUser = await UserMongoSchema.findOne({ id })
 
     if (!mongoUser) {
       return { status: 'fail', statusCode: 400, error: `User Mongo with id: ${id} not found.` }
@@ -36,11 +36,11 @@ class MongoRepository implements IUserRepository {
     const updatedMongoUser = await UserMongoSchema.findOneAndUpdate({ id }, { password: newPassword }, {
       new: true,
       runValidators: true
-    }).select('+password')
+    })
 
     const userDTO: User = createUserDTO(updatedMongoUser)
 
-    return { status: 'success', statusCode: 200, message: 'User Mongo updated!', user: userDTO }
+    return { status: 'success', statusCode: 200, message: `User Mongo with id ${id} change password!`, user: userDTO }
   }
 
   async deleteUser (id: string): Promise<IRepositoryResponse> {
@@ -52,7 +52,7 @@ class MongoRepository implements IUserRepository {
   }
 
   async findUserByEmail (email: string): Promise<IRepositoryResponse> {
-    const mongoUser = await UserMongoSchema.findOne({ email }).select('+password')
+    const mongoUser = await UserMongoSchema.findOne({ email })
 
     if (!mongoUser) {
       return { status: 'fail', statusCode: 400, error: `User Mongo with email: ${email} not found.` }

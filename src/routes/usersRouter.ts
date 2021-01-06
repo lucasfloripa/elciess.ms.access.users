@@ -11,8 +11,8 @@ usersRouter.route('/')
   .post(createUserController.handle)
 
 usersRouter.route('/:id')
-  .get(protect, getUserController.handle)
-  .delete(protect, deleteUserController.handle)
-  .put(protect, changePasswordController.handle)
+  .get(getUserController.handle)
+  .delete(deleteUserController.handle)
+  .put(changePasswordController.handle)
 
 export { usersRouter }

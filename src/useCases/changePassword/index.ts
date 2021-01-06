@@ -1,11 +1,11 @@
-import { OracleRepository } from '@repositories/implementations/OracleRepository'
+import { MongoRepository } from '@repositories/implementations/MongoRepository'
 import { ChangePasswordController } from './ChangePasswordController'
 import { ChangePasswordUseCase } from './ChangePasswordUseCase'
 
-const oracleRepository = new OracleRepository()
+const mongoRepository = new MongoRepository()
 
 const changePasswordUseCase = new ChangePasswordUseCase(
-  oracleRepository
+  mongoRepository
 )
 
 const changePasswordController = new ChangePasswordController(

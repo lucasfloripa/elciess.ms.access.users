@@ -1,11 +1,11 @@
-import { OracleRepository } from '@repositories/implementations/OracleRepository'
+import { MongoRepository } from '@repositories/implementations/MongoRepository'
 import { DeleteUserController } from './DeleteUserController'
 import { DeleteUserUseCase } from './DeleteUserUseCase'
 
-const oracleRepository = new OracleRepository()
+const mongoRepository = new MongoRepository()
 
 const deleteUserUseCase = new DeleteUserUseCase(
-  oracleRepository
+  mongoRepository
 )
 
 const deleteUserController = new DeleteUserController(

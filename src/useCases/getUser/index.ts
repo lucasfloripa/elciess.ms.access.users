@@ -1,11 +1,11 @@
-import { OracleRepository } from '@repositories/implementations/OracleRepository'
+import { MongoRepository } from '@repositories/implementations/MongoRepository'
 import { GetUserController } from './GetUserController'
 import { GetUserUseCase } from './GetUserUseCase'
 
-const oracleRepository = new OracleRepository()
+const mongoRepository = new MongoRepository()
 
 const getUserUseCase = new GetUserUseCase(
-  oracleRepository
+  mongoRepository
 )
 
 const getUserController = new GetUserController(

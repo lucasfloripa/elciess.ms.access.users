@@ -19,7 +19,7 @@ class ChangePasswordController {
     }
 
     if (!newPassword) {
-      return next(new ErrorResponse('Insert password', 400))
+      return next(new ErrorResponse('Insert new password', 400))
     }
 
     const changePasswordRequestDTO: IChangePasswordRequestDTO = {

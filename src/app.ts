@@ -2,7 +2,6 @@ import express, { Application } from 'express'
 import dotenv from 'dotenv'
 import morgan from 'morgan'
 import { mongoDB } from '@configs/mongoDB'
-import { oracleDB } from '@configs/oracleDB'
 import { usersRouter } from '@routes/usersRouter'
 import { errorHandler } from '@middlewares/errorHandler'
 
@@ -34,8 +33,7 @@ class App {
   }
 
   private databases (): void {
-    // mongoDB()
-    oracleDB()
+    mongoDB()
   }
 
   private routes (): void {
