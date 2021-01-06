@@ -2,8 +2,8 @@ import { App } from './app'
 import 'reflect-metadata'
 
 const server = new App().express.listen(
-  process.env.PORT || 5000, () =>
-    console.log(`Server running in ${process.env.NODE_ENV}, mode on port ${process.env.PORT || 5000}`)
+  process.env.PORT || 4444, () =>
+    console.log(`Server running in ${process.env.NODE_ENV}, mode on port ${process.env.PORT || 4444}`)
 )
 
 // Handle unhandled promise rejections
