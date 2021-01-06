@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  elciess.ms.access.users:
+    build: .
+    command: npm run dev
+    ports:
+      - "4444:4444"
+    volumes: 
+      - .:/usr/app
+      - /usr/app/node_modules
