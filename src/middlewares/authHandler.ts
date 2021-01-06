@@ -1,7 +1,7 @@
-import jwt from 'jsonwebtoken'
-import { NextFunction, Request, Response } from 'express'
 import { ErrorResponse } from '@utils/ErrorResponse'
-import { asyncHandler } from './asyncHandler'
+import { asyncHandler } from '@middlewares/asyncHandler'
+import { NextFunction, Request, Response } from 'express'
+import jwt from 'jsonwebtoken'
 
 const protect = asyncHandler(async (request: Request, response: Response, next: NextFunction) => {
   const { authorization } = request.headers
@@ -12,7 +12,7 @@ const protect = asyncHandler(async (request: Request, response: Response, next: 
   }
 
   if (!token) {
-    return next(new ErrorResponse('Not authorize to access this route', 401))
+    return next(new ErrorResponse('Invalid token', 401))
   }
 
   try {

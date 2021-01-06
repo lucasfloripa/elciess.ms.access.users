@@ -12,7 +12,7 @@ usersRouter.route('/')
 
 usersRouter.route('/:id')
   .get(getUserController.handle)
-  .delete(deleteUserController.handle)
-  .put(changePasswordController.handle)
+  .delete(protect, deleteUserController.handle)
+  .put(protect, changePasswordController.handle)
 
 export { usersRouter }
