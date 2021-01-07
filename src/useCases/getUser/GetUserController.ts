@@ -14,7 +14,7 @@ class GetUserController {
     const id = request.params.id
 
     if (!id) {
-      return next(new ErrorResponse('Insert client request user id', 400))
+      return next(new ErrorResponse('Insert client request user id.', 400))
     }
 
     const getUserResquestDTO: IGetUserRequestDTO = {
@@ -22,6 +22,10 @@ class GetUserController {
     }
 
     const getUserResponse = await this.getUserUseCase.execute(getUserResquestDTO)
+
+    if (getUserResponse.status === 'fail') {
+      return next(new ErrorResponse(getUserResponse.error, getUserResponse.statusCode))
+    }
 
     response.json(getUserResponse)
   })

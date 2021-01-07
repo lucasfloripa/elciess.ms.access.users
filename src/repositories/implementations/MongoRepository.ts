@@ -24,7 +24,7 @@ class MongoRepository implements IUserRepository {
       .catch(err => err.message)
 
     if (typeof newMongoUser === 'string') {
-      return { status: 'fail', statusCode: 400, error: `Mongo Error: ${newMongoUser}` }
+      return { status: 'fail', statusCode: 400, error: `Mongo Error: ${newMongoUser}.` }
     }
 
     const userDTO: User = createUserDTO(newMongoUser)

@@ -14,7 +14,7 @@ class DeleteUserController {
       const id = request.params.id
 
       if (!id) {
-        return next(new ErrorResponse('Insert client request user id', 400))
+        return next(new ErrorResponse('Insert client request user id.', 400))
       }
 
       const deleteUserRequestDTO: IDeleteUserRequestDTO = {
@@ -22,6 +22,10 @@ class DeleteUserController {
       }
 
       const deleteUserRequest = await this.deleteUserUseCase.execute(deleteUserRequestDTO)
+
+      if (deleteUserRequest.status === 'fail') {
+        return next(new ErrorResponse(deleteUserRequest.error, deleteUserRequest.statusCode))
+      }
 
       return response.json(deleteUserRequest)
     })

@@ -24,6 +24,10 @@ class CreateUserUseCase {
 
     const createUserResponse = await this.userMongoRepository.createUser(user)
 
+    if (createUserResponse.status === 'fail') {
+      return createUserResponse
+    }
+
     const welcomeEmail = new Email(email)
 
     await this.mailProvider.sendEmail(welcomeEmail)

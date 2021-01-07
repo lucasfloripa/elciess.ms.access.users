@@ -15,11 +15,11 @@ class ChangePasswordController {
     const { newPassword } = request.body as IChangePasswordRequestDTO
 
     if (!id) {
-      return next(new ErrorResponse('Insert user id', 400))
+      return next(new ErrorResponse('Insert user id.', 400))
     }
 
     if (!newPassword) {
-      return next(new ErrorResponse('Insert new password', 400))
+      return next(new ErrorResponse('Insert new password.', 400))
     }
 
     const changePasswordRequestDTO: IChangePasswordRequestDTO = {
@@ -28,6 +28,10 @@ class ChangePasswordController {
     }
 
     const changePasswordResponse = await this.changePasswordUseCase.execute(changePasswordRequestDTO)
+
+    if (changePasswordResponse.status === 'fail') {
+      return next(new ErrorResponse(changePasswordResponse.error, changePasswordResponse.statusCode))
+    }
 
     return response.json(changePasswordResponse)
   })

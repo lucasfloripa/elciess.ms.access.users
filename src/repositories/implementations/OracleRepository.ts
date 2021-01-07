@@ -13,7 +13,7 @@ class OracleRepository implements IUserRepository {
     const oracleUser = await usersRepository.findOne({ id })
 
     if (!oracleUser) {
-      return { status: 'fail', statusCode: 400, error: `User Oracle with id: ${id} not found` }
+      return { status: 'fail', statusCode: 400, error: `User Oracle with id: ${id} not found.` }
     }
 
     const userDTO: User = createUserDTO(oracleUser)
@@ -31,7 +31,7 @@ class OracleRepository implements IUserRepository {
       .catch(err => err.message)
 
     if (typeof newOracleUser === 'string') {
-      return { status: 'fail', statusCode: 400, error: `Oracle Error: ${newOracleUser}` }
+      return { status: 'fail', statusCode: 400, error: `Oracle Error: ${newOracleUser}.` }
     }
 
     const userDTO: User = createUserDTO(newOracleUser)
@@ -61,7 +61,7 @@ class OracleRepository implements IUserRepository {
     const oracleUser = await usersRepository.findOne({ email })
 
     if (!oracleUser) {
-      return { status: 'fail', statusCode: 400, error: `User Oracle with email: ${email} not found` }
+      return { status: 'fail', statusCode: 400, error: `User Oracle with email: ${email} not found.` }
     }
 
     const userDTO: User = createUserDTO(oracleUser)
