@@ -10,7 +10,13 @@ class OracleRepository implements IUserRepository {
   async getUser (id: string): Promise<IRepositoryResponse> {
     const usersRepository = getConnection().getRepository(UserOracle)
 
-    const oracleUser = await usersRepository.findOne({ id })
+    const oracleUser: UserOracle = await usersRepository.findOne({ id })
+      .then(data => data)
+      .catch(err => err.message)
+
+    if (typeof oracleUser === 'string') {
+      return { status: 'fail', statusCode: 500, error: `Oracle error: ${oracleUser}` }
+    }
 
     if (!oracleUser) {
       return { status: 'fail', statusCode: 400, error: `User Oracle with id: ${id} not found.` }
@@ -31,7 +37,7 @@ class OracleRepository implements IUserRepository {
       .catch(err => err.message)
 
     if (typeof newOracleUser === 'string') {
-      return { status: 'fail', statusCode: 400, error: `Oracle Error: ${newOracleUser}.` }
+      return { status: 'fail', statusCode: 500, error: `Oracle Error: ${newOracleUser}.` }
     }
 
     const userDTO: User = createUserDTO(newOracleUser)
@@ -42,7 +48,13 @@ class OracleRepository implements IUserRepository {
   async changePassword (id: string, newPassword: string): Promise<IRepositoryResponse> {
     const usersRepository = getConnection().getRepository(UserOracle)
 
-    await usersRepository.update({ id }, { password: newPassword })
+    const updatedOracleUser: UserOracle = await usersRepository.update({ id }, { password: newPassword })
+      .then(data => data)
+      .catch(err => err.message)
+
+    if (typeof updatedOracleUser === 'string') {
+      return { status: 'fail', statusCode: 500, error: `Oracle Error: ${updatedOracleUser}.` }
+    }
 
     return { status: 'success', statusCode: 200, message: `User Oracle with id ${id} change password!` }
   }
@@ -50,7 +62,13 @@ class OracleRepository implements IUserRepository {
   async deleteUser (id: string): Promise<IRepositoryResponse> {
     const usersRepository = getConnection().getRepository(UserOracle)
 
-    await usersRepository.delete({ id })
+    const deletedOracleUser = await usersRepository.delete({ id })
+      .then(data => data)
+      .catch(err => err.message)
+
+    if (typeof deletedOracleUser === 'string') {
+      return { status: 'fail', statusCode: 500, error: `Oracle Error: ${deletedOracleUser}.` }
+    }
 
     return { status: 'success', statusCode: 200, message: `User Oracle with id: ${id} deleted!` }
   }
@@ -58,7 +76,13 @@ class OracleRepository implements IUserRepository {
   async findUserByEmail (email: string): Promise<IRepositoryResponse> {
     const usersRepository = getConnection().getRepository(UserOracle)
 
-    const oracleUser = await usersRepository.findOne({ email })
+    const oracleUser: UserOracle = await usersRepository.findOne({ email })
+      .then(data => data)
+      .catch(err => err.message)
+
+    if (typeof oracleUser === 'string') {
+      return { status: 'fail', statusCode: 500, error: `Oracle Error: ${oracleUser}.` }
+    }
 
     if (!oracleUser) {
       return { status: 'fail', statusCode: 400, error: `User Oracle with email: ${email} not found.` }
