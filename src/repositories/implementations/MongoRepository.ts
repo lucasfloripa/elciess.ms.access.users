@@ -7,7 +7,13 @@ import { createUserDTO } from '@utils/createUserDTO'
 
 class MongoRepository implements IUserRepository {
   async getUser (id: string): Promise<IRepositoryResponse> {
-    const mongoUser = await UserMongoSchema.findOne({ id })
+    const mongoUser: IUserMongoModel = await UserMongoSchema.findOne({ id })
+      .then(data => data)
+      .catch(err => err.message)
+
+    if (typeof mongoUser === 'string') {
+      return { status: 'fail', statusCode: 500, error: `Mongo Error: ${mongoUser}.` }
+    }
 
     if (!mongoUser) {
       return { status: 'fail', statusCode: 400, error: `User Mongo with id: ${id} not found.` }
@@ -33,10 +39,16 @@ class MongoRepository implements IUserRepository {
   }
 
   async changePassword (id: string, newPassword: string): Promise<IRepositoryResponse> {
-    const updatedMongoUser = await UserMongoSchema.findOneAndUpdate({ id }, { password: newPassword }, {
+    const updatedMongoUser: IUserMongoModel = await UserMongoSchema.findOneAndUpdate({ id }, { password: newPassword }, {
       new: true,
       runValidators: true
     })
+      .then(data => data)
+      .catch(err => err.message)
+
+    if (typeof updatedMongoUser === 'string') {
+      return { status: 'fail', statusCode: 400, error: `Mongo Error: ${updatedMongoUser}.` }
+    }
 
     const userDTO: User = createUserDTO(updatedMongoUser)
 
@@ -44,7 +56,13 @@ class MongoRepository implements IUserRepository {
   }
 
   async deleteUser (id: string): Promise<IRepositoryResponse> {
-    const mongoUser = UserMongoSchema.findOne({ id })
+    const mongoUser: IUserMongoModel = await UserMongoSchema.findOne({ id })
+      .then(data => data)
+      .catch(err => err.message)
+
+    if (typeof mongoUser === 'string') {
+      return { status: 'fail', statusCode: 400, error: `Mongo Error: ${mongoUser}.` }
+    }
 
     await mongoUser.remove()
 
@@ -52,7 +70,13 @@ class MongoRepository implements IUserRepository {
   }
 
   async findUserByEmail (email: string): Promise<IRepositoryResponse> {
-    const mongoUser = await UserMongoSchema.findOne({ email })
+    const mongoUser: IUserMongoModel = await UserMongoSchema.findOne({ email })
+      .then(data => data)
+      .catch(err => err.message)
+
+    if (typeof mongoUser === 'string') {
+      return { status: 'fail', statusCode: 400, error: `Mongo Error: ${mongoUser}.` }
+    }
 
     if (!mongoUser) {
       return { status: 'fail', statusCode: 400, error: `User Mongo with email: ${email} not found.` }
