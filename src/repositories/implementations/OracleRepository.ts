@@ -4,13 +4,17 @@ import { IUserModel } from '@interfaces/IUser'
 import { UserOracle } from '@models/UserOracle'
 import { IUserRepository } from '@repositories/IUserRepository'
 import { createUserDTO } from '@utils/createUserDTO'
-import { getConnection } from 'typeorm'
+import { getConnection, Repository } from 'typeorm'
 
 class OracleRepository implements IUserRepository {
-  async getUser (id: string): Promise<IRepositoryResponse> {
-    const usersRepository = getConnection().getRepository(UserOracle)
+  private readonly usersRepository: Repository<UserOracle>
+  // eslint-disable-next-line no-useless-constructor
+  constructor () {
+    this.usersRepository = getConnection().getRepository(UserOracle)
+  }
 
-    const oracleUser: UserOracle = await usersRepository.findOne({ id })
+  async getUser (id: string): Promise<IRepositoryResponse> {
+    const oracleUser: UserOracle = await this.usersRepository.findOne({ id })
       .then(data => data)
       .catch(err => err.message)
 
@@ -28,11 +32,9 @@ class OracleRepository implements IUserRepository {
   }
 
   async createUser (newUserModel: IUserModel): Promise<IRepositoryResponse> {
-    const usersRepository = getConnection().getRepository(UserOracle)
-
     const oracleUserInstance = new UserOracle(newUserModel)
 
-    const newOracleUser: UserOracle = await usersRepository.save(oracleUserInstance)
+    const newOracleUser: UserOracle = await this.usersRepository.save(oracleUserInstance)
       .then(data => data)
       .catch(err => err.message)
 
@@ -46,9 +48,7 @@ class OracleRepository implements IUserRepository {
   }
 
   async changePassword (id: string, newPassword: string): Promise<IRepositoryResponse> {
-    const usersRepository = getConnection().getRepository(UserOracle)
-
-    const updatedOracleUser: UserOracle = await usersRepository.update({ id }, { password: newPassword })
+    const updatedOracleUser: UserOracle = await this.usersRepository.update({ id }, { password: newPassword })
       .then(data => data)
       .catch(err => err.message)
 
@@ -60,9 +60,7 @@ class OracleRepository implements IUserRepository {
   }
 
   async deleteUser (id: string): Promise<IRepositoryResponse> {
-    const usersRepository = getConnection().getRepository(UserOracle)
-
-    const deletedOracleUser = await usersRepository.delete({ id })
+    const deletedOracleUser = await this.usersRepository.delete({ id })
       .then(data => data)
       .catch(err => err.message)
 
@@ -74,9 +72,7 @@ class OracleRepository implements IUserRepository {
   }
 
   async findUserByEmail (email: string): Promise<IRepositoryResponse> {
-    const usersRepository = getConnection().getRepository(UserOracle)
-
-    const oracleUser: UserOracle = await usersRepository.findOne({ email })
+    const oracleUser: UserOracle = await this.usersRepository.findOne({ email })
       .then(data => data)
       .catch(err => err.message)
 
