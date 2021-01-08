@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryColumn, BeforeInsert } from 'typeorm'
+import { Column, Entity, PrimaryColumn, BeforeInsert, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 import bcrypt from 'bcrypt'
 
 @Entity('users')
@@ -11,6 +11,12 @@ class UserOracle {
 
   @Column({ type: 'varchar', length: 50 })
   password: string
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 
   @BeforeInsert()
   async hashPassword () {
