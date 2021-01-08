@@ -10,6 +10,10 @@ class GetUserUseCase {
   async execute (getUserRequestDTO: IGetUserRequestDTO) {
     const { id } = getUserRequestDTO
 
+    if (!id) {
+      return { status: 'fail', statusCode: 400, error: 'Insert user id.' }
+    }
+
     const getUserResponse = await this.userMongoRepository.getUser(id)
 
     return getUserResponse

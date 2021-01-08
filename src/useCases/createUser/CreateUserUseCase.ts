@@ -12,7 +12,15 @@ class CreateUserUseCase {
   ) {}
 
   async execute (createUserResquestDTO: ICreateUserRequestDTO) {
-    const { email } = createUserResquestDTO
+    const { email, password } = createUserResquestDTO
+
+    if (!email) {
+      return { status: 'fail', statusCode: 400, error: 'Insert e-mail.' }
+    }
+
+    if (!password) {
+      return { status: 'fail', statusCode: 400, error: 'Insert password.' }
+    }
 
     const findUserByEmailResponse = await this.userMongoRepository.findUserByEmail(email)
 
@@ -24,13 +32,9 @@ class CreateUserUseCase {
 
     const createUserResponse = await this.userMongoRepository.createUser(user)
 
-    if (createUserResponse.status === 'fail') {
-      return createUserResponse
+    if (createUserResponse.status === 'success') {
+      await this.mailProvider.sendEmail(new Email(email))
     }
-
-    const welcomeEmail = new Email(email)
-
-    await this.mailProvider.sendEmail(welcomeEmail)
 
     return createUserResponse
   }

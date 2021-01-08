@@ -13,10 +13,6 @@ class DeleteUserController {
     handle = asyncHandler(async (request: Request, response: Response, next: NextFunction) => {
       const { userId } = request
 
-      if (!userId) {
-        return next(new ErrorResponse('Insert client request user id.', 400))
-      }
-
       const deleteUserRequestDTO: IDeleteUserRequestDTO = {
         userId
       }

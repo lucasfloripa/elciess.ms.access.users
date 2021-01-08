@@ -13,10 +13,6 @@ class GetUserController {
   handle = asyncHandler(async (request: Request, response: Response, next: NextFunction) => {
     const id = request.params.id
 
-    if (!id) {
-      return next(new ErrorResponse('Insert client request user id.', 400))
-    }
-
     const getUserResquestDTO: IGetUserRequestDTO = {
       id
     }

@@ -11,6 +11,14 @@ class ChangePasswordUseCase {
   async execute (changePasswordRequestDTO: IChangePasswordRequestDTO) {
     const { userId, newPassword } = changePasswordRequestDTO
 
+    if (!userId) {
+      return { status: 'fail', statusCode: 400, error: 'Invalid User.' }
+    }
+
+    if (!newPassword) {
+      return { status: 'fail', statusCode: 400, error: 'Insert new password.' }
+    }
+
     const getUserResponse = await this.userMongoRepository.getUser(userId)
 
     if (!getUserResponse.user) {

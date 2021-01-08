@@ -15,14 +15,6 @@ class ChangePasswordController {
 
     const { newPassword } = request.body as IChangePasswordRequestDTO
 
-    if (!userId) {
-      return next(new ErrorResponse('Insert user id.', 400))
-    }
-
-    if (!newPassword) {
-      return next(new ErrorResponse('Insert new password.', 400))
-    }
-
     const changePasswordRequestDTO: IChangePasswordRequestDTO = {
       userId,
       newPassword

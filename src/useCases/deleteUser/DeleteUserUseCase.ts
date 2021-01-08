@@ -10,6 +10,10 @@ class DeleteUserUseCase {
   async execute (deleteUserRequestDTO: IDeleteUserRequestDTO) {
     const { userId } = deleteUserRequestDTO
 
+    if (!userId) {
+      return { status: 'fail', statusCode: 400, error: 'Invalid User.' }
+    }
+
     const getUserResponse = await this.userMongoRepository.getUser(userId)
 
     if (!getUserResponse.user) {
