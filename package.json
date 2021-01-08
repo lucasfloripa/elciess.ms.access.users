@@ -1,6 +1,6 @@
 {
   "name": "elciess.ms.access.user",
-  "version": "1.1.14",
+  "version": "1.1.15",
   "description": "Micro service to controll CRUD operations of access users that can be used to access any other Elciess service.",
   "author": "Lucas Gonçalves",
   "email": "lucasg.floripa@gmail.com",

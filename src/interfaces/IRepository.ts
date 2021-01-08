@@ -2,7 +2,7 @@ import { IUserModel } from './IUser'
 
 export interface IRepositoryResponse {
   status: string
-  statusCode: number
+  statusCode?: number
   message?: string
   error?: string
   user?: IUserModel

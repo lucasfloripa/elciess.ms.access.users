@@ -5,6 +5,6 @@ export interface IUserRepository {
   get(id: string): Promise<IRepositoryResponse>
   create(newUserModel: IUserModel): Promise<IRepositoryResponse>
   delete(id: string): Promise<IRepositoryResponse>
-  exists(email:string): Promise<IRepositoryResponse>
+  findUserByEmail(email:string): Promise<IRepositoryResponse>
   changePassword(id: string, newPassword: string): Promise<IRepositoryResponse>
 }

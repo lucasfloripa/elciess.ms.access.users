@@ -22,9 +22,9 @@ class CreateUserUseCase {
       return { status: 'fail', statusCode: 400, error: 'Insert password.' }
     }
 
-    const existsResponse = await this.userMongoRepository.exists(email)
+    const findUserByEmailResponse = await this.userMongoRepository.findUserByEmail(email)
 
-    if (existsResponse.user) {
+    if (findUserByEmailResponse.user) {
       return { status: 'fail', statusCode: 400, error: `E-mail ${email} already used.` }
     }
 

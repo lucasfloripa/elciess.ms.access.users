@@ -71,7 +71,7 @@ class OracleRepository implements IUserRepository {
     return { status: 'success', statusCode: 200, message: `User Oracle with id: ${id} deleted!` }
   }
 
-  async exists (email: string): Promise<IRepositoryResponse> {
+  async findUserByEmail (email: string): Promise<IRepositoryResponse> {
     const oracleUser: UserOracle = await this.usersRepository.findOne({ email })
       .then(data => data)
       .catch(err => err.message)

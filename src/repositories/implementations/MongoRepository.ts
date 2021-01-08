@@ -22,7 +22,7 @@ class MongoRepository implements IUserRepository {
 
     const userDTO: User = createDTO(mongoUser)
 
-    return { status: 'success', statusCode: 200, message: `User Mongo with id ${id} found!`, user: userDTO }
+    return { status: 'success', message: `User Mongo with id ${id} found!`, user: userDTO }
   }
 
   async create (newUserModel: IUserModel): Promise<IRepositoryResponse> {
@@ -38,7 +38,7 @@ class MongoRepository implements IUserRepository {
 
     const userDTO: User = createDTO(newMongoUser)
 
-    return { status: 'success', statusCode: 200, message: 'User Mongo created!', user: userDTO, token }
+    return { status: 'success', message: 'User Mongo created!', user: userDTO, token }
   }
 
   async changePassword (id: string, newPassword: string): Promise<IRepositoryResponse> {
@@ -56,7 +56,7 @@ class MongoRepository implements IUserRepository {
 
     const userDTO: User = createDTO(updatedMongoUser)
 
-    return { status: 'success', statusCode: 200, message: `User Mongo with id ${id} change password!`, user: userDTO }
+    return { status: 'success', message: `User Mongo with id ${id} change password!`, user: userDTO }
   }
 
   async delete (id: string): Promise<IRepositoryResponse> {
@@ -70,10 +70,10 @@ class MongoRepository implements IUserRepository {
 
     await mongoUser.remove()
 
-    return { status: 'success', statusCode: 200, message: `User Mongo with id: ${id} deleted!` }
+    return { status: 'success', message: `User Mongo with id: ${id} deleted!` }
   }
 
-  async exists (email: string): Promise<IRepositoryResponse> {
+  async findUserByEmail (email: string): Promise<IRepositoryResponse> {
     const mongoUser: IUserMongoModel = await UserMongoSchema.findOne({ email })
       .then(data => data)
       .catch(err => err.message)
@@ -88,7 +88,7 @@ class MongoRepository implements IUserRepository {
 
     const userDTO: User = createDTO(mongoUser)
 
-    return { status: 'success', statusCode: 200, message: `User Mongo with email: ${email} found!`, user: userDTO }
+    return { status: 'success', message: `User Mongo with email: ${email} found!`, user: userDTO }
   }
 }
 
