@@ -12,6 +12,7 @@ class ChangePasswordController {
 
   handle = asyncHandler(async (request: Request, response: Response, next: NextFunction) => {
     const { userId } = request
+
     const { newPassword } = request.body as IChangePasswordRequestDTO
 
     if (!userId) {

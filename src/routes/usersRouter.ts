@@ -9,10 +9,10 @@ const usersRouter = Router()
 
 usersRouter.route('/')
   .post(createUserController.handle)
+  .delete(protect, deleteUserController.handle)
+  .put(protect, changePasswordController.handle)
 
 usersRouter.route('/:id')
   .get(getUserController.handle)
-  .delete(protect, deleteUserController.handle)
-  .put(protect, changePasswordController.handle)
 
 export { usersRouter }

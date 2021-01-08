@@ -43,6 +43,7 @@ class MongoRepository implements IUserRepository {
       new: true,
       runValidators: true
     })
+      .select('+password')
       .then(data => data)
       .catch(err => err.message)
 
