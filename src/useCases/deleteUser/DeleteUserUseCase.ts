@@ -7,22 +7,22 @@ class DeleteUserUseCase {
     private userMongoRepository: IUserRepository
   ) {}
 
-  async execute (deleteUserRequestDTO: IDeleteUserRequestDTO) {
-    const { userId } = deleteUserRequestDTO
+  async execute (deleteRequestDTO: IDeleteUserRequestDTO) {
+    const { userId } = deleteRequestDTO
 
     if (!userId) {
       return { status: 'fail', statusCode: 400, error: 'Invalid User.' }
     }
 
-    const getUserResponse = await this.userMongoRepository.getUser(userId)
+    const getResponse = await this.userMongoRepository.get(userId)
 
-    if (!getUserResponse.user) {
-      return getUserResponse
+    if (!getResponse.user) {
+      return getResponse
     }
 
-    const deleteUserResponse = await this.userMongoRepository.deleteUser(getUserResponse.user.id)
+    const deleteResponse = await this.userMongoRepository.delete(getResponse.user.id)
 
-    return deleteUserResponse
+    return deleteResponse
   }
 }
 

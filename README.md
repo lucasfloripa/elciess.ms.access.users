@@ -23,9 +23,9 @@ Controll CRUD operations of access users that can be used to access any other El
 
 ## Routes 
 #### https://elciess-ms-access-users.herokuapp.com/
-- getUser => GET /"userId"
-- createUser => POST /
-- deleteUser => DELETE /
+- get => GET /"userId"
+- create => POST /
+- delete => DELETE /
 - changePassword => PUT /
 
 ## How to start localy this project ?

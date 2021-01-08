@@ -7,19 +7,19 @@ import { CreateUserUseCase } from './CreateUserUseCase'
 class CreateUserController {
   // eslint-disable-next-line no-useless-constructor
   constructor (
-    private createUserUseCase: CreateUserUseCase
+    private createUseCase: CreateUserUseCase
   ) {}
 
   handle = asyncHandler(async (request: Request, response: Response, next: NextFunction) => {
-    const createUserRequestDTO = request.body as ICreateUserRequestDTO
+    const createRequestDTO = request.body as ICreateUserRequestDTO
 
-    const createUserResponse = await this.createUserUseCase.execute(createUserRequestDTO)
+    const createResponse = await this.createUseCase.execute(createRequestDTO)
 
-    if (createUserResponse.status === 'fail') {
-      return next(new ErrorResponse(createUserResponse.error, createUserResponse.statusCode))
+    if (createResponse.status === 'fail') {
+      return next(new ErrorResponse(createResponse.error, createResponse.statusCode))
     }
 
-    return response.json(createUserResponse)
+    return response.json(createResponse)
   })
 }
 

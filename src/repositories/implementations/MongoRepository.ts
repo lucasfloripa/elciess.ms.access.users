@@ -4,10 +4,10 @@ import { IUserModel, IUserMongoModel } from '@interfaces/IUser'
 import { UserMongoSchema } from '@models/UserMongo'
 import { IUserRepository } from '@repositories/IUserRepository'
 import { createToken } from '@utils/createToken'
-import { createUserDTO } from '@utils/createUserDTO'
+import { createDTO } from '@utils/createUserDTO'
 
 class MongoRepository implements IUserRepository {
-  async getUser (id: string): Promise<IRepositoryResponse> {
+  async get (id: string): Promise<IRepositoryResponse> {
     const mongoUser: IUserMongoModel = await UserMongoSchema.findOne({ id })
       .then(data => data)
       .catch(err => err.message)
@@ -20,12 +20,12 @@ class MongoRepository implements IUserRepository {
       return { status: 'fail', statusCode: 400, error: `User Mongo with id: ${id} not found.` }
     }
 
-    const userDTO: User = createUserDTO(mongoUser)
+    const userDTO: User = createDTO(mongoUser)
 
     return { status: 'success', statusCode: 200, message: `User Mongo with id ${id} found!`, user: userDTO }
   }
 
-  async createUser (newUserModel: IUserModel): Promise<IRepositoryResponse> {
+  async create (newUserModel: IUserModel): Promise<IRepositoryResponse> {
     const newMongoUser: IUserMongoModel = await UserMongoSchema.create(newUserModel)
       .then(data => data)
       .catch(err => err.message)
@@ -36,7 +36,7 @@ class MongoRepository implements IUserRepository {
 
     const token: string = createToken(newMongoUser.id)
 
-    const userDTO: User = createUserDTO(newMongoUser)
+    const userDTO: User = createDTO(newMongoUser)
 
     return { status: 'success', statusCode: 200, message: 'User Mongo created!', user: userDTO, token }
   }
@@ -54,12 +54,12 @@ class MongoRepository implements IUserRepository {
       return { status: 'fail', statusCode: 400, error: `Mongo Error: ${updatedMongoUser}.` }
     }
 
-    const userDTO: User = createUserDTO(updatedMongoUser)
+    const userDTO: User = createDTO(updatedMongoUser)
 
     return { status: 'success', statusCode: 200, message: `User Mongo with id ${id} change password!`, user: userDTO }
   }
 
-  async deleteUser (id: string): Promise<IRepositoryResponse> {
+  async delete (id: string): Promise<IRepositoryResponse> {
     const mongoUser: IUserMongoModel = await UserMongoSchema.findOne({ id })
       .then(data => data)
       .catch(err => err.message)
@@ -73,7 +73,7 @@ class MongoRepository implements IUserRepository {
     return { status: 'success', statusCode: 200, message: `User Mongo with id: ${id} deleted!` }
   }
 
-  async findUserByEmail (email: string): Promise<IRepositoryResponse> {
+  async exists (email: string): Promise<IRepositoryResponse> {
     const mongoUser: IUserMongoModel = await UserMongoSchema.findOne({ email })
       .then(data => data)
       .catch(err => err.message)
@@ -86,7 +86,7 @@ class MongoRepository implements IUserRepository {
       return { status: 'fail', statusCode: 400, error: `User Mongo with email: ${email} not found.` }
     }
 
-    const userDTO: User = createUserDTO(mongoUser)
+    const userDTO: User = createDTO(mongoUser)
 
     return { status: 'success', statusCode: 200, message: `User Mongo with email: ${email} found!`, user: userDTO }
   }

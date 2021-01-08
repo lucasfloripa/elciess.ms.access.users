@@ -7,23 +7,23 @@ import { GetUserUseCase } from './GetUserUseCase'
 class GetUserController {
   // eslint-disable-next-line no-useless-constructor
   constructor (
-    private getUserUseCase: GetUserUseCase
+    private getUseCase: GetUserUseCase
   ) {}
 
   handle = asyncHandler(async (request: Request, response: Response, next: NextFunction) => {
     const id = request.params.id
 
-    const getUserResquestDTO: IGetUserRequestDTO = {
+    const getResquestDTO: IGetUserRequestDTO = {
       id
     }
 
-    const getUserResponse = await this.getUserUseCase.execute(getUserResquestDTO)
+    const getResponse = await this.getUseCase.execute(getResquestDTO)
 
-    if (getUserResponse.status === 'fail') {
-      return next(new ErrorResponse(getUserResponse.error, getUserResponse.statusCode))
+    if (getResponse.status === 'fail') {
+      return next(new ErrorResponse(getResponse.error, getResponse.statusCode))
     }
 
-    response.json(getUserResponse)
+    response.json(getResponse)
   })
 }
 

@@ -11,8 +11,8 @@ class CreateUserUseCase {
     private mailProvider: IMailProvider
   ) {}
 
-  async execute (createUserResquestDTO: ICreateUserRequestDTO) {
-    const { email, password } = createUserResquestDTO
+  async execute (createResquestDTO: ICreateUserRequestDTO) {
+    const { email, password } = createResquestDTO
 
     if (!email) {
       return { status: 'fail', statusCode: 400, error: 'Insert e-mail.' }
@@ -22,21 +22,21 @@ class CreateUserUseCase {
       return { status: 'fail', statusCode: 400, error: 'Insert password.' }
     }
 
-    const findUserByEmailResponse = await this.userMongoRepository.findUserByEmail(email)
+    const existsResponse = await this.userMongoRepository.exists(email)
 
-    if (findUserByEmailResponse.user) {
+    if (existsResponse.user) {
       return { status: 'fail', statusCode: 400, error: `E-mail ${email} already used.` }
     }
 
-    const user = new User(createUserResquestDTO)
+    const user = new User(createResquestDTO)
 
-    const createUserResponse = await this.userMongoRepository.createUser(user)
+    const createResponse = await this.userMongoRepository.create(user)
 
-    if (createUserResponse.status === 'success') {
+    if (createResponse.status === 'success') {
       await this.mailProvider.sendEmail(new Email(email))
     }
 
-    return createUserResponse
+    return createResponse
   }
 }
 

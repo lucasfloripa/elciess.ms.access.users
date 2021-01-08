@@ -4,12 +4,12 @@ import { DeleteUserUseCase } from './DeleteUserUseCase'
 
 const mongoRepository = new MongoRepository()
 
-const deleteUserUseCase = new DeleteUserUseCase(
+const deleteUseCase = new DeleteUserUseCase(
   mongoRepository
 )
 
-const deleteUserController = new DeleteUserController(
-  deleteUserUseCase
+const deleteController = new DeleteUserController(
+  deleteUseCase
 )
 
-export { deleteUserUseCase, deleteUserController }
+export { deleteUseCase, deleteController }

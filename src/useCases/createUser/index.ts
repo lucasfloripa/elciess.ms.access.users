@@ -6,13 +6,13 @@ import { CreateUserUseCase } from './CreateUserUseCase'
 const mongoRepository = new MongoRepository()
 const nodemailerProvider = new NodemailerProvider()
 
-const createUserUseCase = new CreateUserUseCase(
+const createUseCase = new CreateUserUseCase(
   mongoRepository,
   nodemailerProvider
 )
 
-const createUserController = new CreateUserController(
-  createUserUseCase
+const createController = new CreateUserController(
+  createUseCase
 )
 
-export { createUserUseCase, createUserController }
+export { createUseCase, createController }

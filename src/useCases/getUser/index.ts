@@ -4,12 +4,12 @@ import { GetUserUseCase } from './GetUserUseCase'
 
 const mongoRepository = new MongoRepository()
 
-const getUserUseCase = new GetUserUseCase(
+const getUseCase = new GetUserUseCase(
   mongoRepository
 )
 
-const getUserController = new GetUserController(
-  getUserUseCase
+const getController = new GetUserController(
+  getUseCase
 )
 
-export { getUserUseCase, getUserController }
+export { getUseCase, getController }

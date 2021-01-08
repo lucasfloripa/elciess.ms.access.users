@@ -1,7 +1,7 @@
 import { User } from '@entities/User'
 import { IUserModel } from '@interfaces/IUser'
 
-function createUserDTO (dbUser: IUserModel): User {
+function createDTO (dbUser: IUserModel): User {
   const { id, email, password } = dbUser
 
   const userDTO: User = {
@@ -13,4 +13,4 @@ function createUserDTO (dbUser: IUserModel): User {
   return userDTO
 }
 
-export { createUserDTO }
+export { createDTO }

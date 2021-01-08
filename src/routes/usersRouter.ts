@@ -1,6 +1,6 @@
-import { createUserController } from '@useCases/createUser'
-import { deleteUserController } from '@useCases/deleteUser'
-import { getUserController } from '@useCases/getUser'
+import { createController } from '@useCases/create'
+import { deleteController } from '@useCases/delete'
+import { getController } from '@useCases/get'
 import { changePasswordController } from '@useCases/changePassword'
 import { protect } from '@middlewares/authHandler'
 import { Router } from 'express'
@@ -8,11 +8,11 @@ import { Router } from 'express'
 const usersRouter = Router()
 
 usersRouter.route('/')
-  .post(createUserController.handle)
-  .delete(protect, deleteUserController.handle)
+  .post(createController.handle)
+  .delete(protect, deleteController.handle)
   .put(protect, changePasswordController.handle)
 
 usersRouter.route('/:id')
-  .get(getUserController.handle)
+  .get(getController.handle)
 
 export { usersRouter }

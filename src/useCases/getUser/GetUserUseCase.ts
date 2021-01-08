@@ -7,16 +7,16 @@ class GetUserUseCase {
     private userMongoRepository: IUserRepository
   ) {}
 
-  async execute (getUserRequestDTO: IGetUserRequestDTO) {
-    const { id } = getUserRequestDTO
+  async execute (getRequestDTO: IGetUserRequestDTO) {
+    const { id } = getRequestDTO
 
     if (!id) {
       return { status: 'fail', statusCode: 400, error: 'Insert user id.' }
     }
 
-    const getUserResponse = await this.userMongoRepository.getUser(id)
+    const getResponse = await this.userMongoRepository.get(id)
 
-    return getUserResponse
+    return getResponse
   }
 }
 
