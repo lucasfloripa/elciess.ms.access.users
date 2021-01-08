@@ -3,6 +3,7 @@ import { IRepositoryResponse } from '@interfaces/IRepository'
 import { IUserModel, IUserMongoModel } from '@interfaces/IUser'
 import { UserMongoSchema } from '@models/UserMongo'
 import { IUserRepository } from '@repositories/IUserRepository'
+import { createToken } from '@utils/createToken'
 import { createUserDTO } from '@utils/createUserDTO'
 
 class MongoRepository implements IUserRepository {
@@ -33,9 +34,11 @@ class MongoRepository implements IUserRepository {
       return { status: 'fail', statusCode: 500, error: `Mongo Error: ${newMongoUser}.` }
     }
 
+    const token: string = createToken(newMongoUser.id)
+
     const userDTO: User = createUserDTO(newMongoUser)
 
-    return { status: 'success', statusCode: 200, message: 'User Mongo created!', user: userDTO }
+    return { status: 'success', statusCode: 200, message: 'User Mongo created!', user: userDTO, token }
   }
 
   async changePassword (id: string, newPassword: string): Promise<IRepositoryResponse> {

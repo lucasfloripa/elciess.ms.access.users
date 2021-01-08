@@ -6,5 +6,5 @@ export interface IRepositoryResponse {
   message?: string
   error?: string
   user?: IUserModel
-  users?: IUserModel[]
+  token?: string
 }
