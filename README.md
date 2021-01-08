@@ -1,10 +1,10 @@
-# Micro Service for Access Users
+# Elciess Access Users
 ##### Tecnologies: Typescript, Node, Express, TypeORM, MongoDB, OracleDB, Heroku.
 
 <br />
 
 ## What this project has to show you ?
-Architecture based on SOLID principles. Diversification of infrastructure implementations. Package by feature approuch.
+Micro service with architecture based on SOLID principles, diversification of infrastructure implementations and package by feature approuch.
 
 ## So, what this micro service do ?
 Controll CRUD operations of access users that can be used to access any other Elciess service.
@@ -17,6 +17,7 @@ Controll CRUD operations of access users that can be used to access any other El
 ## Non-Fuctional Requirements
 - [x] User cant register with same e-mail
 - [x] User receive a welcome e-mail when is created
+- [x] User receive a token when is created
 - [x] Protected routes
 - [x] MongoDB
 
