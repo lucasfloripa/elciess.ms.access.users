@@ -1,4 +1,4 @@
 export interface IChangePasswordRequestDTO {
-  readonly id: string
+  readonly userId: string
   newPassword ?: string
 }

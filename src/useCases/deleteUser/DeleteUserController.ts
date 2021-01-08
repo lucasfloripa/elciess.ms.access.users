@@ -11,14 +11,14 @@ class DeleteUserController {
   ) {}
 
     handle = asyncHandler(async (request: Request, response: Response, next: NextFunction) => {
-      const id = request.params.id
+      const { userId } = request
 
-      if (!id) {
+      if (!userId) {
         return next(new ErrorResponse('Insert client request user id.', 400))
       }
 
       const deleteUserRequestDTO: IDeleteUserRequestDTO = {
-        id
+        userId
       }
 
       const deleteUserRequest = await this.deleteUserUseCase.execute(deleteUserRequestDTO)

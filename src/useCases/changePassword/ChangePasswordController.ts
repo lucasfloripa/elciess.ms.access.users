@@ -11,10 +11,10 @@ class ChangePasswordController {
   ) {}
 
   handle = asyncHandler(async (request: Request, response: Response, next: NextFunction) => {
-    const id = request.params.id
+    const { userId } = request
     const { newPassword } = request.body as IChangePasswordRequestDTO
 
-    if (!id) {
+    if (!userId) {
       return next(new ErrorResponse('Insert user id.', 400))
     }
 
@@ -23,7 +23,7 @@ class ChangePasswordController {
     }
 
     const changePasswordRequestDTO: IChangePasswordRequestDTO = {
-      id,
+      userId,
       newPassword
     }
 

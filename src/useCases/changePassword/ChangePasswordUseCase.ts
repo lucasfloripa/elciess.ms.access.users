@@ -1,5 +1,6 @@
 import { IUserRepository } from '@repositories/IUserRepository'
 import { hashNewPassword } from '@utils/hashNewPassword'
+import { request } from 'express'
 import { IChangePasswordRequestDTO } from './ChangePasswordDTO'
 
 class ChangePasswordUseCase {
@@ -9,9 +10,11 @@ class ChangePasswordUseCase {
   ) {}
 
   async execute (changePasswordRequestDTO: IChangePasswordRequestDTO) {
-    const { id, newPassword } = changePasswordRequestDTO
+    const { userId } = request
 
-    const getUserResponse = await this.userMongoRepository.getUser(id)
+    const { newPassword } = changePasswordRequestDTO
+
+    const getUserResponse = await this.userMongoRepository.getUser(userId)
 
     if (!getUserResponse.user) {
       return getUserResponse
@@ -19,7 +22,7 @@ class ChangePasswordUseCase {
 
     const hashedNewPassword = await hashNewPassword(newPassword)
 
-    const changePasswordResponse = await this.userMongoRepository.changePassword(id, hashedNewPassword)
+    const changePasswordResponse = await this.userMongoRepository.changePassword(userId, hashedNewPassword)
 
     return changePasswordResponse
   }

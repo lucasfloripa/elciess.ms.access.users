@@ -8,9 +8,9 @@ class DeleteUserUseCase {
   ) {}
 
   async execute (deleteUserRequestDTO: IDeleteUserRequestDTO) {
-    const { id } = deleteUserRequestDTO
+    const { userId } = deleteUserRequestDTO
 
-    const getUserResponse = await this.userMongoRepository.getUser(id)
+    const getUserResponse = await this.userMongoRepository.getUser(userId)
 
     if (!getUserResponse.user) {
       return getUserResponse
