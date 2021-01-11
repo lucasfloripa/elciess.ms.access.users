@@ -11,6 +11,7 @@ Controll CRUD operations of access users that can be used to access any other El
 
 ## Fuctional Requirements
 - [x] Create new user
+- [x] Find user by e-mail
 - [x] The user can delete himself
 - [x] The user can change your password
 
@@ -23,10 +24,32 @@ Controll CRUD operations of access users that can be used to access any other El
 
 ## Routes 
 #### https://elciess-ms-access-users.herokuapp.com/
-- get => GET /"userId"
-- create => POST /
+- findUserByEmail
+```
+GET /
+body {
+  "email": "email@example.com"
+}
+```
+
+- createUser
+```
+POST /
+body {
+  "email": "email@example.com"
+  "password": "123qwe"
+}
+```
+
+- changePassword
+```
+PUT /
+body {
+  "newPassword": "123qwe"
+}
+```
+
 - delete => DELETE /
-- changePassword => PUT /
 
 ## How to start localy this project ?
 1. clone the project
