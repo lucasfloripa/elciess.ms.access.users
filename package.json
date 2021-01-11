@@ -6,7 +6,9 @@
   "email": "lucasg.floripa@gmail.com",
   "url": "https://elciess-ms-access-users.herokuapp.com/",
   "main": "index.js",
-  "keywords": ["Access, Users, Elciess, Micro Service"],
+  "keywords": [
+    "Access, Users, Elciess, Micro Service"
+  ],
   "license": "ISC",
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
