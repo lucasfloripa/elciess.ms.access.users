@@ -7,23 +7,23 @@ import { DeleteUserUseCase } from './DeleteUserUseCase'
 class DeleteUserController {
   // eslint-disable-next-line no-useless-constructor
   constructor (
-    private deleteUseCase: DeleteUserUseCase
+    private deleteUserUseCase: DeleteUserUseCase
   ) {}
 
     handle = asyncHandler(async (request: Request, response: Response, next: NextFunction) => {
       const { userId } = request
 
-      const deleteRequestDTO: IDeleteUserRequestDTO = {
+      const deleteUserRequestDTO: IDeleteUserRequestDTO = {
         userId
       }
 
-      const deleteRequest = await this.deleteUseCase.execute(deleteRequestDTO)
+      const deleteUserRequest = await this.deleteUserUseCase.execute(deleteUserRequestDTO)
 
-      if (deleteRequest.status === 'fail') {
-        return next(new ErrorResponse(deleteRequest.error, deleteRequest.statusCode))
+      if (deleteUserRequest.status === 'fail') {
+        return next(new ErrorResponse(deleteUserRequest.error, deleteUserRequest.statusCode))
       }
 
-      return response.json(deleteRequest)
+      return response.json(deleteUserRequest)
     })
 }
 
