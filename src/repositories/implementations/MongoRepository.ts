@@ -1,12 +1,12 @@
 import { User } from '@entities/User'
-import { IRepositoryResponse } from '@interfaces/IRepository'
+import { IUserRepositoryResponse } from '@interfaces/IRepository'
 import { IUserModel, IUserMongoModel } from '@interfaces/IUser'
 import { UserMongoSchema } from '@models/UserMongo'
 import { IUserRepository } from '@repositories/IUserRepository'
 import { createUserDTO } from '@utils/createUserDTO'
 
 class MongoRepository implements IUserRepository {
-  async get (id: string): Promise<IRepositoryResponse> {
+  async get (id: string): Promise<IUserRepositoryResponse> {
     const mongoUser: IUserMongoModel = await UserMongoSchema.findOne({ id })
       .then(data => data)
       .catch(err => err.message)
@@ -24,7 +24,7 @@ class MongoRepository implements IUserRepository {
     return { status: 'success', message: `User Mongo with id ${id} found!`, user: userDTO }
   }
 
-  async create (newUserModel: IUserModel): Promise<IRepositoryResponse> {
+  async create (newUserModel: IUserModel): Promise<IUserRepositoryResponse> {
     const newMongoUser: IUserMongoModel = await UserMongoSchema.create(newUserModel)
       .then(data => data)
       .catch(err => err.message)
@@ -38,7 +38,7 @@ class MongoRepository implements IUserRepository {
     return { status: 'success', message: 'User Mongo created!', user: userDTO }
   }
 
-  async changePassword (id: string, newPassword: string): Promise<IRepositoryResponse> {
+  async changePassword (id: string, newPassword: string): Promise<IUserRepositoryResponse> {
     const updatedMongoUser: IUserMongoModel = await UserMongoSchema.findOneAndUpdate({ id }, { password: newPassword }, {
       new: true,
       runValidators: true
@@ -56,7 +56,7 @@ class MongoRepository implements IUserRepository {
     return { status: 'success', message: `User Mongo with id ${id} change password!`, user: userDTO }
   }
 
-  async delete (id: string): Promise<IRepositoryResponse> {
+  async delete (id: string): Promise<IUserRepositoryResponse> {
     const mongoUser: IUserMongoModel = await UserMongoSchema.findOne({ id })
       .then(data => data)
       .catch(err => err.message)
@@ -70,7 +70,7 @@ class MongoRepository implements IUserRepository {
     return { status: 'success', message: `User Mongo with id: ${id} deleted!` }
   }
 
-  async findUserByEmail (email: string): Promise<IRepositoryResponse> {
+  async findUserByEmail (email: string): Promise<IUserRepositoryResponse> {
     const mongoUser: IUserMongoModel = await UserMongoSchema.findOne({ email })
       .then(data => data)
       .catch(err => err.message)

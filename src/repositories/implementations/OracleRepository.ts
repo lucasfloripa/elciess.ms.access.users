@@ -1,9 +1,9 @@
 import { User } from '@entities/User'
-import { IRepositoryResponse } from '@interfaces/IRepository'
+import { IUserRepositoryResponse } from '@interfaces/IRepository'
 import { IUserModel } from '@interfaces/IUser'
 import { UserOracle } from '@models/UserOracle'
 import { IUserRepository } from '@repositories/IUserRepository'
-import { createDTO } from '@utils/createUserDTO'
+import { createUserDTO } from '@utils/createUserDTO'
 import { getConnection, Repository } from 'typeorm'
 
 class OracleRepository implements IUserRepository {
@@ -13,7 +13,7 @@ class OracleRepository implements IUserRepository {
     this.usersRepository = getConnection().getRepository(UserOracle)
   }
 
-  async get (id: string): Promise<IRepositoryResponse> {
+  async get (id: string): Promise<IUserRepositoryResponse> {
     const oracleUser: UserOracle = await this.usersRepository.findOne({ id })
       .then(data => data)
       .catch(err => err.message)
@@ -26,12 +26,12 @@ class OracleRepository implements IUserRepository {
       return { status: 'fail', statusCode: 400, error: `User Oracle with id: ${id} not found.` }
     }
 
-    const userDTO: User = createDTO(oracleUser)
+    const userDTO: User = createUserDTO(oracleUser)
 
     return { status: 'success', statusCode: 200, message: `User Oracle with id: ${id} found!`, user: userDTO }
   }
 
-  async create (newUserModel: IUserModel): Promise<IRepositoryResponse> {
+  async create (newUserModel: IUserModel): Promise<IUserRepositoryResponse> {
     const oracleUserInstance = new UserOracle(newUserModel)
 
     const newOracleUser: UserOracle = await this.usersRepository.save(oracleUserInstance)
@@ -42,12 +42,12 @@ class OracleRepository implements IUserRepository {
       return { status: 'fail', statusCode: 500, error: `Oracle Error: ${newOracleUser}.` }
     }
 
-    const userDTO: User = createDTO(newOracleUser)
+    const userDTO: User = createUserDTO(newOracleUser)
 
     return { status: 'success', statusCode: 200, message: 'User Oracle created!', user: userDTO }
   }
 
-  async changePassword (id: string, newPassword: string): Promise<IRepositoryResponse> {
+  async changePassword (id: string, newPassword: string): Promise<IUserRepositoryResponse> {
     const updatedOracleUser: UserOracle = await this.usersRepository.update({ id }, { password: newPassword })
       .then(data => data)
       .catch(err => err.message)
@@ -59,7 +59,7 @@ class OracleRepository implements IUserRepository {
     return { status: 'success', statusCode: 200, message: `User Oracle with id ${id} change password!` }
   }
 
-  async delete (id: string): Promise<IRepositoryResponse> {
+  async delete (id: string): Promise<IUserRepositoryResponse> {
     const deletedOracleUser = await this.usersRepository.delete({ id })
       .then(data => data)
       .catch(err => err.message)
@@ -71,7 +71,7 @@ class OracleRepository implements IUserRepository {
     return { status: 'success', statusCode: 200, message: `User Oracle with id: ${id} deleted!` }
   }
 
-  async findUserByEmail (email: string): Promise<IRepositoryResponse> {
+  async findUserByEmail (email: string): Promise<IUserRepositoryResponse> {
     const oracleUser: UserOracle = await this.usersRepository.findOne({ email })
       .then(data => data)
       .catch(err => err.message)
@@ -84,7 +84,7 @@ class OracleRepository implements IUserRepository {
       return { status: 'fail', statusCode: 400, error: `User Oracle with email: ${email} not found.` }
     }
 
-    const userDTO: User = createDTO(oracleUser)
+    const userDTO: User = createUserDTO(oracleUser)
 
     return { status: 'success', statusCode: 200, message: `User Oracle with email: ${email} found!`, user: userDTO }
   }

@@ -1,6 +1,6 @@
 import { IUserModel } from './IUser'
 
-export interface IRepositoryResponse {
+export interface IUserRepositoryResponse {
   status: string
   statusCode?: number
   message?: string

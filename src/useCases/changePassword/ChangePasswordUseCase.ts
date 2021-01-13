@@ -19,10 +19,10 @@ class ChangePasswordUseCase {
       return { status: 'fail', statusCode: 400, error: 'Insert new password.' }
     }
 
-    const getResponse = await this.userMongoRepository.get(userId)
+    const getUserResponse = await this.userMongoRepository.get(userId)
 
-    if (!getResponse.user) {
-      return getResponse
+    if (!getUserResponse.user) {
+      return getUserResponse
     }
 
     const hashedNewPassword = await hashNewPassword(newPassword)
