@@ -14,15 +14,15 @@ class DeleteUserUseCase {
       return { status: 'fail', statusCode: 400, error: 'Invalid User.' }
     }
 
-    const getResponse = await this.userMongoRepository.get(userId)
+    const getUserResponse = await this.userMongoRepository.get(userId)
 
-    if (!getResponse.user) {
-      return getResponse
+    if (!getUserResponse.user) {
+      return getUserResponse
     }
 
-    const deleteResponse = await this.userMongoRepository.delete(getResponse.user.id)
+    const deleteUserResponse = await this.userMongoRepository.delete(getUserResponse.user.id)
 
-    return deleteResponse
+    return deleteUserResponse
   }
 }
 

@@ -8,7 +8,9 @@ Given user informs email and password
 And submit the register
 When system check fields
 And check if email is already used
+And hash the password
 Then system create new user 
+And send a token
 
 Scenario: User informs invalid data
 Given user informs email and password

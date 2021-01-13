@@ -3,8 +3,7 @@ import { IRepositoryResponse } from '@interfaces/IRepository'
 import { IUserModel, IUserMongoModel } from '@interfaces/IUser'
 import { UserMongoSchema } from '@models/UserMongo'
 import { IUserRepository } from '@repositories/IUserRepository'
-import { createToken } from '@utils/createToken'
-import { createDTO } from '@utils/createUserDTO'
+import { createUserDTO } from '@utils/createUserDTO'
 
 class MongoRepository implements IUserRepository {
   async get (id: string): Promise<IRepositoryResponse> {
@@ -20,7 +19,7 @@ class MongoRepository implements IUserRepository {
       return { status: 'fail', statusCode: 400, error: `User Mongo with id: ${id} not found.` }
     }
 
-    const userDTO: User = createDTO(mongoUser)
+    const userDTO: User = createUserDTO(mongoUser)
 
     return { status: 'success', message: `User Mongo with id ${id} found!`, user: userDTO }
   }
@@ -34,11 +33,9 @@ class MongoRepository implements IUserRepository {
       return { status: 'fail', statusCode: 500, error: `Mongo Error: ${newMongoUser}.` }
     }
 
-    const token: string = createToken(newMongoUser.id)
+    const userDTO: User = createUserDTO(newMongoUser)
 
-    const userDTO: User = createDTO(newMongoUser)
-
-    return { status: 'success', message: 'User Mongo created!', user: userDTO, token }
+    return { status: 'success', message: 'User Mongo created!', user: userDTO }
   }
 
   async changePassword (id: string, newPassword: string): Promise<IRepositoryResponse> {
@@ -54,7 +51,7 @@ class MongoRepository implements IUserRepository {
       return { status: 'fail', statusCode: 400, error: `Mongo Error: ${updatedMongoUser}.` }
     }
 
-    const userDTO: User = createDTO(updatedMongoUser)
+    const userDTO: User = createUserDTO(updatedMongoUser)
 
     return { status: 'success', message: `User Mongo with id ${id} change password!`, user: userDTO }
   }
@@ -86,7 +83,7 @@ class MongoRepository implements IUserRepository {
       return { status: 'fail', statusCode: 400, error: `User Mongo with email: ${email} not found.` }
     }
 
-    const userDTO: User = createDTO(mongoUser)
+    const userDTO: User = createUserDTO(mongoUser)
 
     return { status: 'success', message: `User Mongo with email: ${email} found!`, user: userDTO }
   }
